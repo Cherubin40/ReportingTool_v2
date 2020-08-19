@@ -1,0 +1,24 @@
+{% extends 'reportingTool/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<form action="" method="POST" autocomplete="off">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-md-4"> {{form.code_patient|as_crispy_field}} </div>
+        <div class="col-md-3"> {{form.genre|as_crispy_field}} </div>
+        <div class="col-md-2"> {{form.age|as_crispy_field}} </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-4"> {{form.conseiller|as_crispy_field}} </div>
+        <div class="col-md-4"> {{form.depister|as_crispy_field}} </div>
+        <div class="col-md-4"> {{form.resultat|as_crispy_field}} </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-4"> {{form.resultat_recu|as_crispy_field}} </div>
+        <div class="col-md-4"> {{form.beneficiant_CD4|as_crispy_field}} </div>
+    </div>   
+</form>
+{% endblock content %}

@@ -1,0 +1,21 @@
+● rptProject
+|
++---● reportingTool (app folder)
+|   |
+|   +--● migrations (includes files related to migrations)
+|   |  
+|   +--● templates
+|   |  |--● reportingTool
+|   |  |  |--base.html
+|   |  |  |--rpt_form.html
+|   |  |  |--rpt_list.html
+|   | 
+|   |-- models.py
+|   |-- forms.py
+|   |-- urls.py
+|   |-- views.py
+|
++---● rptProject (project folder)
+|   |
+|   |--settings.py 
+|   |--urls.py

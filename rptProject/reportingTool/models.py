@@ -29,19 +29,19 @@ class Patient(models.Model):
         ('M', 'Masculin'),
         ('F', 'Feminin'),
     )
-    genre = models.CharField(max_length=1, choices=GENDER_CHOICES)
+    genre = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=True)
 
 
     def age_validate(value):
         if value > 120:
             raise ValidationError(u'%s n\'est pas un âge valide' % value)
-    age = models.PositiveSmallIntegerField(validators=[age_validate])
+    age = models.PositiveSmallIntegerField(validators=[age_validate], null=True)
 
     # INFORMATION SUR LE TEST DE DÉPISTAGE
 
-    conseiller = models.BooleanField()
+    conseiller = models.BooleanField(null=True)
 
-    depister = models.BooleanField()
+    depister = models.BooleanField(null=True)
 
     RESULTAT_TEST_CHOICES = (
         ('P', 'Positif'),
@@ -49,12 +49,12 @@ class Patient(models.Model):
         ('I', 'Indéterminer'),
         ('C', 'Statut connu')
     )
-    resultat = models.CharField(max_length=1, choices=RESULTAT_TEST_CHOICES)
+    resultat = models.CharField(max_length=1, choices=RESULTAT_TEST_CHOICES, blank=True)
 
-    resultat_recu = models.BooleanField() # On veut les conseillés et dépistés ayants reçu leur resultats
+    resultat_recu = models.BooleanField(null=True) # On veut les conseillés et dépistés ayants reçu leur resultats
                                           # On veut les positifs ayants reçu leur résultat
     
-    beneficiant_CD4 = models.BooleanField() # Positif bénéficiant d'un CD4 (Seuls les positifs en bénéficient)
+    beneficiant_CD4 = models.BooleanField(null=True) # Positif bénéficiant d'un CD4 (Seuls les positifs en bénéficient)
 
     def __str__(self):
         return self.code_patient
