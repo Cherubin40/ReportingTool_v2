@@ -2,5 +2,50 @@
 
 
 {% block content %}
-<p>Nous afficherons les donnée ici</p>
+
+<table class="table table-borderless">
+    <thead class="border-bottom font-weight-bold">
+        <tr>
+            <td>Code du Patient</td>
+            <td>Sexe</td>
+            <td>Âge</td>
+            <td>Conseiller pour le test</td>
+            <td>Éffectivement dépisté</td>
+            <td>Résultat du test de dépistage</td>
+            <td>Positif ayant reçu son résultat</td>
+            <td>Positif bénéficiant d'un CD4</td>
+            <td>
+                <a href="{% url 'patient_insert' %}" class="btn btn-outline-success">
+                    <i class="fas fa-plus"></i>Ajouter
+                </a>
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for patient in patient_list %}
+            <tr>
+                <td> {{patient.code_patient}} </td>
+                <td>{{patient.genre}}</td>
+                <td>{{patient.age}}</td>
+                <td>{{patient.conseiller}}</td>
+                <td>{{patient.depister}}</td>
+                <td>{{patient.resultat}}</td>
+                <td>{{patient.resultat_recu}}</td>
+                <td>{{patient.beneficiant_CD4}}</td>
+                <td>
+                    <a href="{% url 'patient_update' patient.id %}" class="btn text-secondary px-0">
+                        <i class="far fa-edit fa-lg"></i>
+                    </a>
+                    <form action="{% url 'patient_delete' patient.id %}" method="POST" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn">
+                            <i class="far fa-trash-alt fa-lg text-danger float-right"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
 {% endblock content %}

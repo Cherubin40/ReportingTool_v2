@@ -19,6 +19,16 @@
     <div class="row">
         <div class="col-md-4"> {{form.resultat_recu|as_crispy_field}} </div>
         <div class="col-md-4"> {{form.beneficiant_CD4|as_crispy_field}} </div>
-    </div>   
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <button type="submit" class="btn btn-success btn-block btn-lg"><i class="fas fa-database mr-2"></i>Soumettre</button>
+        </div>
+        <div class="col-md-4">
+            <a href="{% url 'patient_list' %}" class="btn btn-secondary btn-block btn-lg">
+                <i class="fas fa-stream mr-2"></i>Retour à la liste
+            </a>
+        </div>
+    </div>
 </form>
 {% endblock content %}
