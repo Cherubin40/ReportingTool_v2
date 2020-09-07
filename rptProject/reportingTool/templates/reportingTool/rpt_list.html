@@ -3,9 +3,11 @@
 
 {% block content %}
 
-<table class="table table-borderless">
+<table class="table table-hover table-responsive-sm table-striped col-sm-6">
     <thead class="border-bottom font-weight-bold">
         <tr>
+            <td>Post de dépistage</td>
+            <td>Date de dépistage</td>
             <td>Code du Patient</td>
             <td>Sexe</td>
             <td>Âge</td>
@@ -24,6 +26,8 @@
     <tbody>
         {% for patient in patient_list %}
             <tr>
+                <td>{{patient.post_de_depistage}}</td>
+                <td>{{patient.date_de_depistage}}</td>
                 <td> {{patient.code_patient}} </td>
                 <td>{{patient.genre}}</td>
                 <td>{{patient.age}}</td>

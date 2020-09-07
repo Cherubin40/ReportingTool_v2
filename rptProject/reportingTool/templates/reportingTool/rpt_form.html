@@ -5,6 +5,10 @@
 <form action="" method="POST" autocomplete="off">
     {% csrf_token %}
     <div class="row">
+        <div class="col-md-6"> {{form.post_de_depistage|as_crispy_field}} </div>
+        <div class="col-md-6"> {{form.date_de_depistage|as_crispy_field}} </div>
+    </div>
+    <div class="row">
         <div class="col-md-4"> {{form.code_patient|as_crispy_field}} </div>
         <div class="col-md-3"> {{form.genre|as_crispy_field}} </div>
         <div class="col-md-2"> {{form.age|as_crispy_field}} </div>

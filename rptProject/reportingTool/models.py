@@ -1,21 +1,28 @@
 from django.db import models
 from django.core.exceptions import ValidationError
+from datetime import date
 import re
 
 
 
 # Create your models here.
 
-class Post_depistage(models.Model):
-    
-    title = models.CharField(max_length=50)
-
-    def __str__(self):
-        return self.title
-
-
-
 class Patient(models.Model):
+
+    POST_DE_DEPISTAGE_CHOICES = (
+        ('Tuberculose', 'Tuberculose'),
+        ('CPN2 et Plus + Acccouch + CPoN', 'CPN2 et Plus + Acccouch + CPoN'),
+        ('IST', 'IST'),
+        ('Hospitalisation', 'Hospitalisation'),
+        ('Index testing','Index testing'),
+        ('Urgence','Urgence'),
+        ('Malnutrition','Malnutrition'),
+        ('Autre CDIP','Autre CDIP')
+    )
+    post_de_depistage = models.CharField(max_length=30, choices=POST_DE_DEPISTAGE_CHOICES, null=True)
+
+
+    date_de_depistage = models.DateField(default=date.today ,null=True)
 
     def code_patient_validate(value):
         reg = re.compile('^[0-9]{4}\/[a-zA-Z0-9]{2}\/[0-3][0-9]\/[0-9]{5}(e|E){0,1}1{0,1}[0-9]{0,1}$')
@@ -27,9 +34,9 @@ class Patient(models.Model):
     
     GENDER_CHOICES = (
         ('Masculin', 'Masculin'),
-        ('Feminin', 'Feminin'),
+        ('Féminin', 'Féminin'),
     )
-    genre = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=True)
+    genre = models.CharField(max_length=10, choices=GENDER_CHOICES, null=True)
 
 
     def age_validate(value):
@@ -43,23 +50,39 @@ class Patient(models.Model):
             ('OUI', 'OUI'),
             ('NON', 'NON'),
         )
-    conseiller = models.CharField(max_length=1, choices=CONSEILLER_CHOICES, blank=True)
+    conseiller = models.CharField(max_length=3, choices=CONSEILLER_CHOICES, null=True)
 
 
-    depister = models.BooleanField(null=True)
+    DEPISTER_CHOICES = (
+            ('OUI', 'OUI'),
+            ('NON', 'NON'),
+        )
+    depister = models.CharField(max_length=3, choices=DEPISTER_CHOICES, null=True)
+
 
     RESULTAT_TEST_CHOICES = (
-        ('P', 'Positif'),
-        ('N', 'Négatif'),
-        ('I', 'Indéterminer'),
-        ('C', 'Statut connu')
+        ('Positif', 'Positif'),
+        ('Négatif', 'Négatif'),
+        ('Indéterminer', 'Indéterminer'),
+        ('Statut connu', 'Statut connu')
     )
-    resultat = models.CharField(max_length=1, choices=RESULTAT_TEST_CHOICES, blank=True)
+    resultat = models.CharField(max_length=15, choices=RESULTAT_TEST_CHOICES, null=True)
 
-    resultat_recu = models.BooleanField(null=True) # On veut les conseillés et dépistés ayants reçu leur resultats
-                                          # On veut les positifs ayants reçu leur résultat
+
+    RESULTAT_RECU_CHOICES = (      # On veut les conseillés et dépistés ayants reçu leur resultats
+            ('OUI', 'OUI'),        # On veut les positifs ayants reçu leur résultat
+            ('NON', 'NON'),
+        )
+    resultat_recu = models.CharField(max_length=3, choices=RESULTAT_RECU_CHOICES, null=True)
+     
     
-    beneficiant_CD4 = models.BooleanField(null=True) # Positif bénéficiant d'un CD4 (Seuls les positifs en bénéficient)
+
+    BENEFICIANT_CD4_CHOICES = ( # Positif bénéficiant d'un CD4 (Seuls les positifs en bénéficient)
+            ('OUI', 'OUI'),
+            ('NON', 'NON'),
+        )
+    beneficiant_CD4 = models.CharField(max_length=3, choices=DEPISTER_CHOICES, null=True)
+  
 
     def __str__(self):
         return self.code_patient

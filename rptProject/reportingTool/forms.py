@@ -6,10 +6,12 @@ class RptForms(forms.ModelForm):
     class Meta:
         model = Patient
 
-        fields = ('code_patient', 'genre', 'age', 'conseiller',
+        fields = ('post_de_depistage','date_de_depistage','code_patient', 'genre', 'age', 'conseiller',
          'depister', 'resultat', 'resultat_recu', 'beneficiant_CD4')
 
         labels = {
+            'post_de_depistage': 'Post de dépistage',
+            'date_de_depistage': 'Date de dépistage',
             'code_patient':'Code du Patient',
             'genre':'Sexe',
             'age':'Âge',
@@ -30,4 +32,6 @@ class RptForms(forms.ModelForm):
         self.fields['resultat'].required = True
         self.fields['resultat_recu'].required = True
         self.fields['beneficiant_CD4'].required = True
+        self.fields['post_de_depistage'].required = True
+        self.fields['date_de_depistage'].required = True
     #-------------------------------------------------------------------------------------
